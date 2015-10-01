@@ -2,3 +2,6 @@ target/
 
 #Maven
 */target/*
+.project  
+.classpath
+.settings/

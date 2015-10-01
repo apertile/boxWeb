@@ -34,19 +34,26 @@ import org.springframework.beans.factory.annotation.Value;
 @Getter
 @Setter
 public class GlobalProperties {
+	
+	/*
+	 * MySQL properties.
+	 * The following fields MUST be provided externally
+	 */
+	@Value("${mysql.dataSource.url}")
+	private String dataSourceUrl;
 
 	/*
 	 * Mongo properties
 	 */
-	@Value("${cision.mongo.hosts}")
+	@Value("${mongo.hosts}")
 	private String[] mongoHosts;
-	@Value("${cision.mongo.port}")
+	@Value("${mongo.port}")
 	private String mongoPort;
-	@Value("${cision.mongo.db}")
+	@Value("${mongo.db}")
 	private String mongoDB;
-	@Value("${cision.mongo.user}")
+	@Value("${mongo.user}")
 	private String mongoUser;
-	@Value("${cision.mongo.password}")
+	@Value("${mongo.password}")
 	private String mongoPassword;
 	
 }

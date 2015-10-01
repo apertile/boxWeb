@@ -5,7 +5,7 @@
 	<artifactId>boxWeb</artifactId>
 	<packaging>war</packaging>
 	<version>1.0-SNAPSHOT</version>
-	
+
 	<name>Boxing webpage</name>
 	<url>http://maven.apache.org</url>
 
@@ -256,6 +256,12 @@
 			<artifactId>mongo-java-driver</artifactId>
 			<version>${mongodb.driver.version}</version>
 			<scope>compile</scope>
+		</dependency>
+		<!-- MySQL Java Driver -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.36</version>
 		</dependency>
 	</dependencies>
 	<build>

@@ -14,7 +14,7 @@ import com.arielpertile.boxWeb.BasePackage;
 @Configuration
 @ComponentScan(basePackageClasses = BasePackage.class, useDefaultFilters = false, includeFilters = {
 		@Filter(Service.class), @Filter(Repository.class), @Filter(Named.class) })
-@Import({ PropertyConfig.class, JsonConfig.class, MongoConfig.class })
+@Import({ PropertyConfig.class, JsonConfig.class, MongoConfig.class, MySqlConfig.class })
 class ApplicationConfig {
 
 }
