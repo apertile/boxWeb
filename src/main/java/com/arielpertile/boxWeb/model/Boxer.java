@@ -103,4 +103,10 @@ public class Boxer {
 	
 	@OneToMany(mappedBy="boxer")
 	private Set<Nickname> nicknames;
+	
+	public static final String GET_BOXER_BY_SURNAME_AND_FIRSTNAME = "FROM Boxer b "
+			+ "WHERE b.surname = :surname "
+			+ "AND b.firstName = :firstName";
+	
+	public static final String GET_BOXER = "GET_BOXER";
 }
