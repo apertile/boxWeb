@@ -20,7 +20,10 @@
 					<input type="text" class="form-control" id="turnedPro" name="turnedPro" placeholder="Turned Pro (yyyy)">
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" id="birthCity" name="birthCity" placeholder="Birth City">
+					<input type="text" class="form-control" id="birthCity" 
+						   name="birthCity" placeholder="Birth City" 
+						   ng-model="result" 
+						   typeahead="suggestion for suggestion in cities($viewValue)">
 				</div>
 				<div class="form-group">
 					<input type="text" class="form-control" id="wins" name="wins" placeholder="Wins">

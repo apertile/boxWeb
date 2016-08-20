@@ -22,6 +22,6 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
     @Override
     protected String[] getServletMappings() {
         log.debug("Loading.. ServletMappings");
-        return new String[] { "/boxWeb" };
+        return new String[] { "/" };
     }
 }

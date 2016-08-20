@@ -3,7 +3,6 @@ package com.arielpertile.boxWeb.config;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.Ordered;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -21,7 +20,11 @@ class WebConfig extends WebMvcConfigurerAdapter {
 		registry.addResourceHandler("/resources/**")
 				.addResourceLocations("/resources/")
 				.setCachePeriod(31556926);
-		registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
+		registry.addResourceHandler("/**")
+        		.addResourceLocations("/")
+        		.setCachePeriod(0);
 	}
+	
+	
 	
 }
