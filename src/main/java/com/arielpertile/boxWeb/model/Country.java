@@ -1,43 +1,31 @@
 package com.arielpertile.boxWeb.model;
 
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
 @Entity
 @Table(name = "country")
-public class Country{
-
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Country {
+	
 	@Id
-	@Column(name = "CountryID")
-	private Integer countryId;
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private long id;
 	
-	@Column(name = "Code")
-	private String code;
+	@Column(name = "iso")
+	private String iso;
 	
-	@Column(name = "Name")
+	@Column(name = "name")
 	private String name;
-	
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "nationality", joinColumns = { 
-			@JoinColumn(name = "countryId", updatable = false) }, 
-			inverseJoinColumns = { @JoinColumn(name = "boxerId", updatable = false) })
-	private Set<Boxer> nationalities;
-	
-	@OneToMany(mappedBy="stateId")
-	private Set<State> states;
 
 }

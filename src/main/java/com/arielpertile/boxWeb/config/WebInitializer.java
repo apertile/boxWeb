@@ -1,49 +1,27 @@
 package com.arielpertile.boxWeb.config;
 
-import java.util.Set;
+import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRegistration;
+import lombok.extern.slf4j.Slf4j;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.web.WebApplicationInitializer;
-import org.springframework.web.context.ContextLoaderListener;
-import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
-import org.springframework.web.servlet.DispatcherServlet;
-
-public class WebInitializer implements WebApplicationInitializer {
+@Slf4j
+public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 	
-	private static final Logger logger = LoggerFactory.getLogger(WebApplicationInitializer.class);
+	@Override
+    protected Class<?>[] getRootConfigClasses() {
+        log.debug("Loading.. RootConfigClasses");
+        return new Class[] { ApplicationConfig.class};
+    }
 
-	public void onStartup(ServletContext servletContext) throws ServletException {
+    @Override
+    protected Class<?>[] getServletConfigClasses() {
+        log.debug("Loading.. ServletConfigClasses");
+        return new Class[] { WebConfig.class };
+    }
 
-		// Create the root appcontext
-		AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
-		rootContext.register(ApplicationConfig.class);
-		// since we registered ApplicationtConfig instead of passing it to the constructor
-		rootContext.refresh();
-
-		// Manage the lifecycle of the root appcontext
-		servletContext.addListener(new ContextLoaderListener(rootContext));
-		servletContext.setInitParameter("defaultHtmlEscape", "true");
-
-		// now the config for the Dispatcher servlet
-		AnnotationConfigWebApplicationContext mvcContext = new AnnotationConfigWebApplicationContext();
-		mvcContext.register(WebConfig.class);
-
-		// The main Spring MVC servlet.
-		ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher", new DispatcherServlet(
-				mvcContext));
-		dispatcher.setLoadOnStartup(1);
-		Set<String> mappingConflicts = dispatcher.addMapping("/api/*");
-
-		if (!mappingConflicts.isEmpty()) {
-			for (String s : mappingConflicts) {
-				logger.error("Mapping conflict: " + s);
-			}
-			throw new IllegalStateException("'dispatcher' cannot be mapped to '/' under Tomcat versions <= 7.0.14");
-		}
-	}
+    @Override
+    protected String[] getServletMappings() {
+        log.debug("Loading.. ServletMappings");
+        return new String[] { "/boxWeb" };
+    }
 }

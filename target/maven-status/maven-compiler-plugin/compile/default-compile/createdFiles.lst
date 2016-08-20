@@ -1,9 +1,0 @@
-com\arielpertile\boxWeb\config\WebConfig.class
-com\arielpertile\boxWeb\config\WebInitializer.class
-com\arielpertile\boxWeb\config\JsonConfig.class
-com\arielpertile\boxWeb\BasePackage.class
-com\arielpertile\boxWeb\GlobalProperties.class
-com\arielpertile\boxWeb\config\PropertyConfig.class
-com\arielpertile\boxWeb\controller\RootController.class
-com\arielpertile\boxWeb\config\ApplicationConfig.class
-com\arielpertile\boxWeb\config\MongoConfig.class

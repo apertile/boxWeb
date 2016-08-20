@@ -1,48 +1,40 @@
 package com.arielpertile.boxWeb.model;
-// Generated Oct 2, 2015 1:41:22 AM by Hibernate Tools 4.0.0
 
-import java.util.Date;
-import java.util.Set;
+import java.sql.Date;
 
+import static javax.persistence.CascadeType.PERSIST;
+import static javax.persistence.CascadeType.MERGE;
+import static javax.persistence.CascadeType.REFRESH;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
 @Entity
 @Table(name = "boxer")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Boxer {
-
+	
 	@Id
-	@Column(name = "boxerID")
-	private Integer boxerId;
-	
-	@Column(name = "BirthCity")
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CityId")
-	private City birthCity;
-	
-	@Column(name = "ResidenceCityID")
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "cityId")
-	private City residenceCity;
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private long id;
 	
 	@Column(name = "FirstName")
 	private String firstName;
 	
-	@Column(name = "MiddleName")
-	private String middleName;
+	@Column(name = "MiddleNames")
+	private String middleNames;
 	
 	@Column(name = "Surname")
 	private String surname;
@@ -50,63 +42,44 @@ public class Boxer {
 	@Column(name = "BirthDate")
 	private Date birthDate;
 	
-	@Column(name = "Debut")
-	private Date debut;
+	@Column(name = "TurnedPro")
+	private int turnedPro;
 	
-	@Column(name = "Fights")
-	private Integer fights;
+	@OneToOne(fetch = FetchType.LAZY, cascade = {PERSIST, REFRESH, MERGE})
+	@JoinColumn(name = "BirthCity", nullable = true, unique = false)
+	private City birthCity;
+	
+	@OneToOne(fetch = FetchType.LAZY, cascade = {PERSIST, REFRESH, MERGE})
+	@JoinColumn(name = "BirthState", nullable = true, unique = false)
+	private State birthState;
+	
+	@OneToOne(fetch = FetchType.LAZY, cascade = {PERSIST, REFRESH, MERGE})
+	@JoinColumn(name = "BirthCountry", nullable = true, unique = false)
+	private Country birthCountry;
 	
 	@Column(name = "Wins")
-	private Integer wins;
-	
-	@Column(name = "Losses")
-	private Integer losses;
+	private int wins;
 	
 	@Column(name = "Draws")
-	private Integer draws;
+	private int draws;
+	
+	@Column(name = "Losses")
+	private int losses;
 	
 	@Column(name = "NoContests")
-	private Integer noContests;
+	private int noContests;
 	
 	@Column(name = "Disqualifications")
-	private Integer disqualifications;
+	private int disqualifications;
 	
 	@Column(name = "Retired")
-	private Date retired;
+	private int retired;
 	
-	@Column(name = "Stance")
-	private String stance;
+	@OneToOne(fetch = FetchType.LAZY, cascade = {PERSIST, REFRESH, MERGE})
+	@JoinColumn(name = "ResidenceCity", nullable = true, unique = false)
+	private City residenceCity;
 	
-	@Column(name = "Height")
-	private Integer height;
-	
-	@Column(name = "Reach")
-	private Integer reach;
+	@Column(name = "Death")
+	private Date death;
 
-	@OneToMany(mappedBy="boxerId1")
-	private Set<Fight> fightsForBoxerId1;
-	
-	@OneToMany(mappedBy="boxerId2")
-	private Set<Fight> fightsForBoxerId2;	
-	
-	@OneToMany(mappedBy="winnerId")
-	private Set<Fight> fightsForWinnerId;
-	
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "nationality", joinColumns = { 
-			@JoinColumn(name = "boxerId", updatable = false) }, 
-			inverseJoinColumns = { @JoinColumn(name = "countryId", updatable = false) })
-	private Set<Country> nationalities;
-	
-	@OneToMany(mappedBy="boxer")
-	private Set<BoxerRanking> boxerrankings;
-	
-	@OneToMany(mappedBy="boxer")
-	private Set<Nickname> nicknames;
-	
-	public static final String GET_BOXER_BY_SURNAME_AND_FIRSTNAME = "FROM Boxer b "
-			+ "WHERE b.surname = :surname "
-			+ "AND b.firstName = :firstName";
-	
-	public static final String GET_BOXER = "GET_BOXER";
 }
